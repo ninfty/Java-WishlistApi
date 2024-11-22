@@ -1,12 +1,15 @@
 package com.community.wishlist.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class DemoController {
     @GetMapping
-    public String getTest() {
-        return "GET : Hello world!";
+    public String getTest(HttpServletRequest request) {
+
+        return "CSRF Token: " + ((CsrfToken)request.getAttribute("_csrf")).getToken();
     }
 
     @PostMapping
@@ -14,7 +17,7 @@ public class DemoController {
         return "POST: Hello world!";
     }
 
-    @PutMapping
+    @PutMapping("/white")
     public String putTest() {
         return "PUT: Hello world!";
     }
