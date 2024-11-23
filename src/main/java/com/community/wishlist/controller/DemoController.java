@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 public class DemoController {
     @GetMapping
     public String getTest(HttpServletRequest request) {
-
         return "CSRF Token: " + ((CsrfToken)request.getAttribute("_csrf")).getToken();
     }
 

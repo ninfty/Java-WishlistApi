@@ -17,6 +17,11 @@ services:
       - wishlist-api
     depends_on:
       - db
+    volumes:
+#      - ./src/main:/app/src/main
+      - ./:/app
+#    command: ./mvnw spring-boot:run
+    command: ./mvnw spring-boot:run -Dspring-boot.run.jvmArguments="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000"
 #       db:
 #         condition: service_healthy
 
@@ -32,6 +37,8 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=wishlist
+    volumes:
+      - db-data:/var/lib/mysql
 
 #  db:
 #     image: postgres
@@ -52,8 +59,8 @@ services:
 #       timeout: 5s
 #       retries: 5
 
-#volumes:
-#   db-data:
+volumes:
+   db-data:
 
 #secrets:
 #   db-password:
