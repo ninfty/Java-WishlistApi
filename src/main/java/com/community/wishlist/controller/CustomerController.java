@@ -4,11 +4,9 @@ import com.community.wishlist.exception.EntityAlreadyExistsException;
 import com.community.wishlist.exception.ResourceNotFoundException;
 import com.community.wishlist.model.Customer;
 import com.community.wishlist.service.CustomerService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -16,6 +14,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
+@RestController
+@RequestMapping("/customer")
 public class CustomerController {
     private final CustomerService customerService;
 
