@@ -19,7 +19,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(EntityAlreadyExistsException.class)
-    public ResponseEntity<?> entityAlreadyExistsException(ResourceNotFoundException ex, WebRequest request) {
+    public ResponseEntity<?> entityAlreadyExistsException(EntityAlreadyExistsException ex, WebRequest request) {
         ErrorResponse errorDetails = new ErrorResponse(new Date(), HttpStatus.UNPROCESSABLE_ENTITY.toString(), ex.getMessage(), request.getDescription(false));
 
         return new ResponseEntity<>(errorDetails, HttpStatus.UNPROCESSABLE_ENTITY);
@@ -33,12 +33,8 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(NoResourceFoundException.class)
-//    @ResponseStatus(value= HttpStatus.NOT_FOUND)
-//    @ResponseBody
-//    public ErrorResponse requestHandlingNoHandlerFound() {
     public ResponseEntity<?> NoResourceFoundException(Exception ex, WebRequest request) {
-//        return new ErrorResponse("custom_404", "message for 404 error code");
-        ErrorResponse errorDetails = new ErrorResponse(new Date(), HttpStatus.NOT_FOUND.toString(), "aaa", "aa");
+        ErrorResponse errorDetails = new ErrorResponse(new Date(), HttpStatus.NOT_FOUND.toString(), ex.getMessage(), request.getDescription(false));
 
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }

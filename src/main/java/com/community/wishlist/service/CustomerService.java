@@ -19,7 +19,11 @@ public class CustomerService {
     }
 
     public Customer create(Customer customer) throws EntityAlreadyExistsException {
-        this.findByEmail(customer.getEmail()).orElseThrow(() -> new EntityAlreadyExistsException(""));
+        boolean userAlreadyExists = this.findByEmail(customer.getEmail()).isPresent();
+
+        if (userAlreadyExists) {
+            throw new EntityAlreadyExistsException("User already exists.");
+        }
 
         return this.customerRepository.save(customer);
     }

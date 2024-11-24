@@ -32,6 +32,7 @@ public class CustomerController {
     @Transactional
     public ResponseEntity<Customer> create(@RequestBody @Valid Customer newCustomer, UriComponentsBuilder uriBuilder) throws EntityAlreadyExistsException {
         Customer customer = customerService.create(newCustomer);
+
         URI uri = uriBuilder.path("/customer/{id}").buildAndExpand(newCustomer.getId()).toUri();
 
         return ResponseEntity.created(uri).body(customer);
